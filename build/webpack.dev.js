@@ -25,7 +25,12 @@ module.exports = merge(common, {
   },
   devtool: 'inline-source-map',
   devServer: {
-    host: 'localhost',
-    contentBase: '../dist',
+      host: 'localhost',
+      contentBase: '../dist',
+      overlay: {
+        warnings: false,
+        errors: false
+    },
   },
+  lintOnSave: false
 });
