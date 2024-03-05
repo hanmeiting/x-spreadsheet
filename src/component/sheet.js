@@ -410,7 +410,6 @@ function overlayerMousedown(evt) {
 
     // mouse move up
     mouseMoveUp(window, (e) => {
-      // console.log('mouseMoveUp::::');
       ({ ri, ci } = data.getCellRectByXY(e.offsetX, e.offsetY));
       if (isAutofillEl) {
         selector.showAutofill(ri, ci);
@@ -1009,5 +1008,31 @@ export default class Sheet {
       left: cols.indexWidth,
       top: rows.height,
     };
+  } 
+
+  cellSelectedIndex(evt) {
+		const {data} = this;
+		const cRect = data.getCellRectByXY(evt.offsetX, evt.offsetY);
+		let {ri, ci} = cRect;
+		return {
+			ri, ci
+		};
+	}
+  
+  selectorSetPublic(ri, ci) {
+		selectorSet.call(this, false, ri, ci);
+	}
+
+  sheetResetPublic() {
+      sheetReset.call(this);
+  }
+
+  selectorSetPublic(ri, ci) {
+      selectorSet.call(this, false, ri, ci,true,false);
+  }
+  cellSelectedWhenHover(evt) {
+      var cellInfo = this.cellSelectedIndex(evt);
+      //console.log("cellSelectedWhenHover:" + cellInfo.ri + " " + cellInfo.ci);
+      this.selectorSetPublic(cellInfo.ri, cellInfo.ci);
   }
 }
